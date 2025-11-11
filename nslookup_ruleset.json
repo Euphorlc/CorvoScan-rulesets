@@ -1,0 +1,35 @@
+{
+  "a_rule": [
+    {
+      "record_type": "A",
+      "pattern": "^(?:10\\.|192\\.168\\.|172\\.(?:1[6-9]|2[0-9]|3[0-1])\\.)",
+      "severity": "Medium",
+      "message": "A record resolves to a private IP; likely internal host leaked or misconfiguration."
+    }
+  ],
+
+  "mx_rule": [
+    {
+      "type": "same_priority",
+      "severity": "Info",
+      "message": "Emails may be delivered to any of these servers for load balancing."
+    },
+    {
+      "type": "diff_priority",
+      "severity": "Info",
+      "message": "Multiple MX records with different priorities. Emails will be delivered to the lowest-priority server first."
+    },
+    {
+      "type": "no_mx",
+      "severity": "Medium",
+      "message": "No MX records found — domain may not be configured to receive email."
+    }
+  ],
+
+  "subdomain_threshold": 100,
+
+  "defaults": {
+    "severity": "Info",
+    "message": "No specific rule matched. Review record manually."
+  }
+}
