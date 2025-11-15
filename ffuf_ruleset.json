@@ -1,0 +1,100 @@
+{
+    "path_rules": [
+        {
+            "status": 200,
+            "path": "^admin/?$",
+            "severity": "High",
+            "message": "Admin area is accessible."
+        },
+        {
+            "status": 200,
+            "path": "^login/?$",
+            "severity": "Medium",
+            "message": "Login page exposed."
+        },
+        {
+            "status": 200,
+            "path": "^(?:backup|.*\\.bak)$",
+            "severity": "High",
+            "message": "Backup file or folder exposed."
+        },
+        {
+            "status": 200,
+            "path": "^(?:config|settings|setup)/?$",
+            "severity": "High",
+            "message": "Config folder exposed."
+        },
+        {
+            "status": 200,
+            "path": "^(?:db|database)/?$",
+            "severity": "High",
+            "message": "Database-related file or folder exposed."
+        },
+        {
+            "status": 200,
+            "path": "^\\.git/?$",
+            "severity": "High",
+            "message": "Git repository is accessible."
+        },
+        {
+            "status": 200,
+            "path": "^\\.env$",
+            "severity": "Critical",
+            "message": "Environment file exposed."
+        },
+        {
+            "status": 200,
+            "path": "^logs?/?$",
+            "severity": "Medium",
+            "message": "Log files accessible."
+        },
+        {
+            "status": 200,
+            "path": "^(?:test|dev|staging)/?$",
+            "severity": "Medium",
+            "message": "Test or dev folder accessible."
+        },
+        {
+            "status": 200,
+            "path": "^phpinfo\\.php$",
+            "severity": "High",
+            "message": "phpinfo exposed."
+        },
+        {
+            "status": 200,
+            "path": "^(?:debug|debugger|debug\\.php)$",
+            "severity": "High",
+            "message": "Debug endpoints exposed."
+        },
+        {
+            "status": 200,
+            "path": "^server-status$",
+            "severity": "High",
+            "message": "Apache server-status exposed."
+        },
+        {
+            "status": 200,
+            "path": "^(?:\\.svn|\\.hg|\\.DS_Store)$",
+            "severity": "High",
+            "message": "Version control or hidden metadata exposed."
+        },
+        {
+            "status": 200,
+            "path": "^(?:uploads|files|media)/?$",
+            "severity": "Medium",
+            "message": "Public upload directory accessible."
+        },
+        {
+            "status": 301,
+            "path": "^images(?:/.*)?$",
+            "severity": "Low",
+            "message": "Test only!"
+        },
+        {
+            "status": 200,
+            "path": "^(?:shell\\.php|cmd\\.php)$",
+            "severity": "High",
+            "message": "Possible web shell exposed."
+        }
+    ]
+}
