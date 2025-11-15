@@ -1,0 +1,108 @@
+{
+  "registrar_rules": [
+    {
+      "pattern": "(?i)verisign",
+      "message": "Registrar is Verisign — generally trusted but verify domain controls and DNSSEC.",
+      "severity": "Low"
+    },
+
+    {
+      "pattern": "(?i)(1api|bizcn|publicdomainregistry|eranetworks|namejuice|domainnameman|galcomm)",
+      "message": "Registrar appears in outdated or low-security list → possible domain hijack or DNS tampering risk.",
+      "severity": "Medium"
+    },
+
+    {
+      "pattern": "^(?!.*(namecheap|godaddy|google|cloudflare|gandi|porkbun|dynadot|markmonitor|csc|amazon registrar)).*$",
+      "message": "Registrar not in major secure registrar list → verify domain lock, 2FA and monitoring.",
+      "severity": "Low"
+    },
+
+    {
+      "pattern": "DS-RDATA: *$",
+      "message": "DNSSEC appears absent → possible DNS spoofing or cache poisoning exposure.",
+      "severity": "High"
+    },
+
+    {
+      "pattern": "(?i)(bizcn|volgahost|above\\.com|eranetworks|galcomm|alpnames)",
+      "message": "Registrar associated with high-abuse domains → may indicate lax security controls.",
+      "severity": "Medium"
+    },
+
+    {
+      "pattern": "Registrar: *$",
+      "message": "Registrar field missing or empty → WHOIS suppression or misconfiguration detected.",
+      "severity": "Medium"
+    },
+
+    {
+      "pattern": "(?i)(fax|facsimile)",
+      "message": "Registrar uses outdated contact fields → backend systems may be old or less secure.",
+      "severity": "Low"
+    },
+
+    {
+      "pattern": "(?i)(russia|china|ukraine|seychelles|british virgin islands)",
+      "message": "Registrar located in high-risk jurisdiction → review domain security posture.",
+      "severity": "Medium"
+    },
+
+    {
+      "pattern": "(?i)(Updated:.*202[3-5]-[01][0-9]-[0-3][0-9])",
+      "message": "WHOIS recently updated → verify registrar or DNS changes were intentional.",
+      "severity": "Low"
+    },
+
+    {
+      "pattern": "(?i)(freenom|dot\\.tk|dot\\.ml|dot\\.cf|dot\\.ga)",
+      "message": "Free-domain registrar detected → historically weak identity verification.",
+      "severity": "Low"
+    },
+
+    {
+      "pattern": ".+",
+      "severity": "Info",
+      "message": "Test rule: registrar present"
+    }
+  ],
+
+  "age_rules": [
+
+    {
+      "pattern": "(?i)Creation Date: (\\d{4})-(\\d{2})-(\\d{2})",
+      "message": "Domain is very new (<1 year old) → may be transient/test domain; verify trustworthiness.",
+      "severity": "High",
+      "condition": "current_year - \\1 < 1"
+    },
+
+    {
+      "pattern": "(?i)Creation Date: (\\d{4})-(\\d{2})-(\\d{2})",
+      "message": "Domain is relatively new (1–3 years old) → moderate risk; could be recently registered for malicious activity.",
+      "severity": "Medium",
+      "condition": "current_year - \\1 >= 1 && current_year - \\1 <= 3"
+    },
+
+    {
+      "pattern": "(?i)Creation Date: (\\d{4})-(\\d{2})-(\\d{2})",
+      "message": "Domain is mature (>3 years old) → lower risk, likely stable/legitimate.",
+      "severity": "Low",
+      "condition": "current_year - \\1 > 3"
+    },
+
+    {
+      "pattern": "creation",
+      "condition": "age > 30",
+      "severity": "Medium",
+      "message": "Test rule: domain created more than 30 years ago"
+    },
+
+    {
+      "pattern": "updated",
+      "condition": "current_year - year <= 2",
+      "severity": "Low",
+      "message": "Test rule: domain updated within the last 2 years"
+    }
+  ]
+
+}

@@ -1,0 +1,114 @@
+{
+  "hostname_rule": [
+    {
+      "pattern": "(?i)(?:^|\\.)security(?:\\.|$)",
+      "severity": "High",
+      "message": "Hostname contains 'security' — likely a sensitive/authentication asset; treat as high priority."
+    },
+    {
+      "pattern": "(?i)(?:dev|development|sandbox)",
+      "severity": "Medium",
+      "message": "Hostname indicates a development environment — these often run less-hardened builds and may expose unnecessary services."
+    },
+    {
+      "pattern": "(?i)(?:test|qa|uat)",
+      "severity": "Medium",
+      "message": "Test or QA environment suggested by hostname — verify that non-production systems are not externally exposed."
+    },
+    {
+      "pattern": "(?i)(?:staging|preprod)",
+      "severity": "Medium",
+      "message": "Staging environment detected — staging tends to mirror production and may reveal sensitive behavior if reachable."
+    },
+    {
+      "pattern": "(?i)(?:prod|production)",
+      "severity": "Low",
+      "message": "Production-labelled hostname — presence is expected but usually indicates high-value targets requiring strong hardening."
+    },
+    {
+      "pattern": "(?i)(?:internal|\\bint\\b|intra)",
+      "severity": "High",
+      "message": "Hostname suggests internal resources — internal-labelled hosts appearing in public records may signal boundary exposure."
+    },
+    {
+      "pattern": "(?i)\\bdmz\\b",
+      "severity": "Medium",
+      "message": "DMZ-labelled hostname — indicates edge systems that should be tightly monitored and isolated."
+    },
+    {
+      "pattern": "(?i)\\bapi\\b",
+      "severity": "Low",
+      "message": "API-labelled hostname — APIs usually expand the surface area and require consistent versioning and input validation."
+    },
+    {
+      "pattern": "(?i)(?:auth|login|identity)",
+      "severity": "High",
+      "message": "Authentication-related naming — indicates sensitive components where weak config or exposure may have high impact."
+    },
+    {
+      "pattern": "(?i)(?:db|database|\\bsql\\b)",
+      "severity": "High",
+      "message": "Database-related naming — should generally not appear as an externally identifiable hostname."
+    },
+    {
+      "pattern": "(?i)(?:cache|redis|memcached)",
+      "severity": "Medium",
+      "message": "Cache-layer naming — caching layers sometimes expose metadata or internal behavior if not properly gated."
+    },
+    {
+      "pattern": "(?i)(?:legacy|old|v1|deprecated)",
+      "severity": "Medium",
+      "message": "Legacy or deprecated naming — may imply outdated systems that need additional review."
+    },
+    {
+      "pattern": "(?i)(?:backup|\\bbk\\b|mirror)",
+      "severity": "Medium",
+      "message": "Hostname suggests backup or mirrored systems — these occasionally contain sensitive snapshots or outdated config."
+    },
+    {
+      "pattern": "(?i)(?:static|assets|cdn)",
+      "severity": "Low",
+      "message": "Static or asset distribution hostname — typically low-risk but may reveal deployment structure."
+    },
+    {
+      "pattern": "(?i)(?:mail|smtp|pop|imap)",
+      "severity": "Medium",
+      "message": "Mail-related hostname — mail servers often expose metadata and require strict transport and auth configuration."
+    },
+    {
+      "pattern": "(?i)\\bvpn\\b",
+      "severity": "High",
+      "message": "VPN-labelled hostname — external discovery of VPN endpoints may highlight access gateways."
+    },
+    {
+      "pattern": "(?i)(?:admin|panel|dashboard)",
+      "severity": "High",
+      "message": "Hostname hints at administration functionality — these should be access-restricted and monitored."
+    },
+    {
+      "pattern": "(?i)(?:edge|gateway)",
+      "severity": "Medium",
+      "message": "Gateway or edge-host naming — often part of boundary infrastructure that benefits from configuration review."
+    },
+    {
+      "pattern": "(?i)(?:k8s|kubectl|cluster)",
+      "severity": "High",
+      "message": "Cluster-related naming detected — Kubernetes-related hosts should not directly expose control surfaces."
+    },
+    {
+      "pattern": "(?i)(?:worker|node|app\\d+)",
+      "severity": "Low",
+      "message": "Worker or node naming — suggests internal compute units or autoscaling groups."
+    },
+    {
+      "pattern": "(?i)(?:ops|monitor|grafana|prometheus)",
+      "severity": "Medium",
+      "message": "Operations or monitoring-related naming — exposure may reveal infrastructure telemetry or configuration."
+    }
+  ],
+
+  "defaults": {
+    "severity": "Info",
+    "message": "No hostname pattern matched — general review recommended."
+  }
+}

@@ -1,0 +1,271 @@
+{
+  "server_rule": [
+    {
+      "pattern": "Varnish",
+      "severity": "Medium",
+      "message": "Varnish detected — check for cache poisoning and sensitive response caching."
+    },
+    {
+      "pattern": "nginx",
+      "severity": "Low",
+      "message": "nginx detected — verify default pages and misconfigurations."
+    },
+    {
+      "pattern": "Apache",
+      "severity": "Low",
+      "message": "Apache detected — check for default directories and modules disclosure."
+    },
+    {
+      "pattern": "Microsoft-IIS|IIS",
+      "severity": "Medium",
+      "message": "IIS detected — verify patched modules and default IIS pages are removed."
+    },
+    {
+      "pattern": "x-powered-by|X-Powered-By",
+      "severity": "Low",
+      "message": "Technology/version disclosure via X-Powered-By header — may aid targeted attacks."
+    }
+  ],
+
+  "security_header_rule": [
+    {
+      "pattern": "Missing: Strict-Transport-Security|missing HSTS|no Strict-Transport-Security",
+      "severity": "Medium",
+      "message": "HSTS missing — site may be vulnerable to protocol downgrade or MITM."
+    },
+    {
+      "pattern": "Missing: Content-Security-Policy|missing Content-Security-Policy|no Content-Security-Policy",
+      "severity": "Medium",
+      "message": "CSP missing — increased risk of XSS exploitation."
+    },
+    {
+      "pattern": "Missing: X-Frame-Options|missing X-Frame-Options|no X-Frame-Options",
+      "severity": "Medium",
+      "message": "X-Frame-Options missing — site may be vulnerable to clickjacking."
+    },
+    {
+      "pattern": "Missing: X-Content-Type-Options|missing X-Content-Type-Options",
+      "severity": "Low",
+      "message": "X-Content-Type-Options missing — risk of MIME sniffing."
+    },
+    {
+      "pattern": "Missing: Referrer-Policy|missing Referrer-Policy",
+      "severity": "Low",
+      "message": "Referrer-Policy missing — potential referrer leakage."
+    }
+  ],
+
+  "tls_ssl_rule": [
+    {
+      "pattern": "self-signed|Self-Signed",
+      "severity": "High",
+      "message": "Self-signed TLS certificate detected — trust and interception risk."
+    },
+    {
+      "pattern": "expired certificate|Certificate expired",
+      "severity": "High",
+      "message": "Expired TLS certificate — clients may be vulnerable to interception."
+    },
+    {
+      "pattern": "TLS 1.0|SSLv3|SSL 3.0|TLSv1",
+      "severity": "High",
+      "message": "Weak or deprecated TLS/SSL protocol supported — risk of protocol attacks."
+    },
+    {
+      "pattern": "missing HSTS|preload not present|includeSubDomains not present",
+      "severity": "Medium",
+      "message": "HSTS not fully enforced or not preloaded — reduces protection against downgrade attacks."
+    }
+  ],
+
+  "cookie_rule": [
+    {
+      "pattern": "Cookie",
+      "severity": "Medium",
+      "message": "Cookies present — confirm Secure and HttpOnly attributes are set."
+    },
+    {
+      "pattern": "session|sessid|auth|token",
+      "severity": "High",
+      "message": "Session/auth cookie detected — ensure proper flags and encryption."
+    }
+  ],
+
+  "uncommon_header_rule": [
+    {
+      "pattern": "x-served-by",
+      "severity": "Low",
+      "message": "x-served-by discloses internal node — info disclosure."
+    },
+    {
+      "pattern": "x-timer",
+      "severity": "Low",
+      "message": "x-timer reveals timing/backend details — may aid profiling."
+    },
+    {
+      "pattern": "x-cache-hits",
+      "severity": "Low",
+      "message": "x-cache-hits reveals cache behavior — can help attackers infer caching logic."
+    },
+    {
+      "pattern": "server:.*\\(internal|trace|debug",
+      "severity": "Low",
+      "message": "Server header contains debug/internal strings — possible leakage."
+    }
+  ],
+
+  "redirect_rule": [
+    {
+      "pattern": "301 Moved Permanently|302 Found|307 Temporary Redirect",
+      "severity": "Low",
+      "message": "Redirects present — validate redirect targets to avoid open redirect vulnerabilities."
+    },
+    {
+      "pattern": "RedirectLocation",
+      "severity": "Low",
+      "message": "RedirectLocation header found — ensure final target is trusted and not user-controllable."
+    }
+  ],
+
+  "cdn_rule": [
+    {
+      "pattern": "Fastly|151\\.101\\.",
+      "severity": "Low",
+      "message": "Fastly CDN detected — check CDN config for cache poisoning and stale content."
+    },
+    {
+      "pattern": "Akamai|146\\.75\\.",
+      "severity": "Low",
+      "message": "Akamai CDN detected — verify edge rules and origin validation."
+    },
+    {
+      "pattern": "Cloudflare",
+      "severity": "Low",
+      "message": "Cloudflare detected — verify proxied hostnames and DNS records to avoid subdomain takeover."
+    }
+  ],
+
+  "cms_plugin_rule": [
+    {
+      "pattern": "wp-content|WordPress",
+      "severity": "Medium",
+      "message": "WordPress artifacts detected — check plugin/theme versions for known CVEs."
+    },
+    {
+      "pattern": "Joomla",
+      "severity": "Medium",
+      "message": "Joomla detected — verify core and extension patching."
+    },
+    {
+      "pattern": "Drupal",
+      "severity": "Medium",
+      "message": "Drupal detected — check patch levels and known module vulnerabilities."
+    },
+    {
+      "pattern": "phpMyAdmin",
+      "severity": "High",
+      "message": "phpMyAdmin detected — ensure it is not exposed publicly or is fully secured."
+    },
+    {
+      "pattern": "adminer",
+      "severity": "High",
+      "message": "Adminer detected — verify it is access-restricted and up to date."
+    }
+  ],
+
+  "exposed_file_rule": [
+    {
+      "pattern": "robots.txt",
+      "severity": "Low",
+      "message": "robots.txt accessible — may reveal sensitive paths to attackers."
+    },
+    {
+      "pattern": "sitemap.xml",
+      "severity": "Low",
+      "message": "sitemap.xml accessible — may reveal full site structure."
+    },
+    {
+      "pattern": "README|CHANGELOG|LICENSE",
+      "severity": "Low",
+      "message": "Public README/CHANGELOG/LICENSE found — may leak version or internal info."
+    },
+    {
+      "pattern": "\\.(git|svn)\\/",
+      "severity": "High",
+      "message": "VCS directory exposed (.git/.svn) — potential source code leakage."
+    },
+    {
+      "pattern": "\\bbackup\\b|\\.bak|~$|\\.old",
+      "severity": "High",
+      "message": "Backup or old files exposed — may contain sensitive data or credentials."
+    }
+  ],
+
+  "directory_listing_rule": [
+    {
+      "pattern": "Index of /",
+      "severity": "High",
+      "message": "Directory listing enabled — may expose files and sensitive information."
+    }
+  ],
+
+  "admin_panel_rule": [
+    {
+      "pattern": "/admin|/administrator|/wp-admin|/login|/user/login",
+      "severity": "High",
+      "message": "Admin or login path discovered — ensure rate limiting, 2FA, and IP restrictions."
+    }
+  ],
+
+  "cors_rule": [
+    {
+      "pattern": "Access-Control-Allow-Origin: \\*|CORS: allow all",
+      "severity": "High",
+      "message": "Wildcard CORS policy detected — may enable credentialed cross-origin attacks if combined with sensitive endpoints."
+    },
+    {
+      "pattern": "Access-Control-Allow-Credentials: true",
+      "severity": "Medium",
+      "message": "CORS credentials allowed — validate allowed origins strictly."
+    }
+  ],
+
+  "sensitive_endpoint_rule": [
+    {
+      "pattern": "phpinfo\\(\\)|phpinfo.php",
+      "severity": "High",
+      "message": "phpinfo page found — exposes server configuration and environment variables."
+    },
+    {
+      "pattern": "/.env|environment variables",
+      "severity": "High",
+      "message": ".env or environment configuration accessible — may contain secrets."
+    }
+  ],
+
+  "info_disclosure_rule": [
+    {
+      "pattern": "OpenSearch",
+      "severity": "Low",
+      "message": "OpenSearch description discovered — may reveal search endpoints or query templates."
+    },
+    {
+      "pattern": "Server:.*version|Version:",
+      "severity": "Low",
+      "message": "Version disclosure in headers or pages — helps attackers target known CVEs."
+    }
+  ],
+
+  "robots_misc_rule": [
+    {
+      "pattern": "allow: /admin|disallow: /admin",
+      "severity": "Low",
+      "message": "robots.txt mentions admin paths — indicates where sensitive functionality resides."
+    }
+  ],
+
+  "defaults": {
+    "severity": "Info",
+    "message": "No vulnerability indicator matched — manual review recommended."
+  }
+}

@@ -8,6 +8,15 @@
     }
   ],
 
+  "aaaa_rule": [
+    {
+      "record_type": "AAAA",
+      "pattern": "^(?:fc00:|fd00:|fe80:|::1)",
+      "severity": "Medium",
+      "message": "AAAA record resolves to a private IPv6 address (ULA / link-local / loopback); likely internal host leaked or misconfiguration."
+    }
+  ],
+
   "mx_rule": [
     {
       "type": "same_priority",
@@ -23,6 +32,276 @@
       "type": "no_mx",
       "severity": "Medium",
       "message": "No MX records found — domain may not be configured to receive email."
+    }
+  ],
+
+  "ns_rule": [
+    {
+      "provider": "Amazon Route 53",
+      "pattern": "^ns-\\d+\\.awsdns-\\d+\\.(?:org|net|com|co\\.uk)\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by Amazon Route 53."
+    },
+    {
+      "provider": "Cloudflare",
+      "pattern": "^(?:ns1|ns2)\\.cloudflare\\.com\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by Cloudflare."
+    },
+    {
+      "provider": "UltraDNS/Neustar",
+      "pattern": "^sdns\\d*\\.ultradns\\.(?:com|net|biz|org)\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by UltraDNS / Neustar."
+    },
+    {
+      "provider": "Google Cloud DNS",
+      "pattern": "^ns-cloud-\\d+\\.googledomains\\.com\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by Google Cloud DNS."
+    },
+    {
+      "provider": "Azure DNS",
+      "pattern": "^(?:ns1-\\d+-[a-z0-9-]+\\.azure-dns\\.com|[a-z0-9-]+\\.azure-dns\\.net)\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by Microsoft Azure DNS."
+    },
+    {
+      "provider": "NS1",
+      "pattern": "^ns-\\d+\\.nsone\\.net\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by NS1."
+    },
+    {
+      "provider": "Dyn / Oracle Dyn",
+      "pattern": "^(?:ns1\\.p\\d+\\.dynect\\.net|ns-\\d+\\.dynect\\.net)\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by Dyn / Oracle Dyn."
+    },
+    {
+      "provider": "Akamai / EdgeDNS",
+      "pattern": "(?:akamaiedge|akamai|edgekey\\.net)\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by Akamai / EdgeDNS."
+    },
+    {
+      "provider": "Verisign",
+      "pattern": "(?:a\\.gtld-servers\\.net|verisign)\\.?$",
+      "severity": "Info",
+      "message": "DNS is served by Verisign infrastructure."
+    },
+    {
+      "provider": "GoDaddy",
+      "pattern": "^(?:dns\\d+\\.domaincontrol\\.com|ns\\d+\\.domaincontrol\\.com)\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by GoDaddy."
+    },
+    {
+      "provider": "Cloudflare (alt)",
+      "pattern": "^ns\\d*\\.cf[\\w.-]*\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by Cloudflare (alternate namespace)."
+    },
+    {
+      "provider": "Fastly",
+      "pattern": "(?:fastly\\.net|global\\.ssl\\.fastly\\.net)\\.?$",
+      "severity": "Info",
+      "message": "DNS / edge service appears to be Fastly."
+    },
+    {
+      "provider": "AWS CloudFront",
+      "pattern": "(?:cloudfront\\.net|amazonaws\\.com)\\.?$",
+      "severity": "Info",
+      "message": "DNS / CDN appears to be AWS CloudFront."
+    },
+    {
+      "provider": "Netlify / Vercel",
+      "pattern": "(?:netlify\\.com|vercel-dns\\.com|vercel\\.sh)\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by Netlify or Vercel."
+    },
+    {
+      "provider": "GitHub Pages",
+      "pattern": "github\\.io\\.?$",
+      "severity": "Info",
+      "message": "DNS is associated with GitHub Pages."
+    },
+    {
+      "provider": "Heroku",
+      "pattern": "herokuapp\\.com\\.?$",
+      "severity": "Info",
+      "message": "DNS is associated with Heroku."
+    },
+    {
+      "provider": "DigitalOcean",
+      "pattern": "^ns\\d+\\.digitalocean\\.com\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by DigitalOcean."
+    },
+    {
+      "provider": "Linode",
+      "pattern": "^ns\\d+\\.linode\\.com\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by Linode."
+    },
+    {
+      "provider": "Hetzner",
+      "pattern": "^ns\\d+\\.(?:first|second)-ns\\.de\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by Hetzner."
+    },
+    {
+      "provider": "Oracle Cloud DNS",
+      "pattern": "^ns-\\d+\\.oraclecloud\\.net\\.?$",
+      "severity": "Info",
+      "message": "DNS is hosted by Oracle Cloud DNS."
+    },
+    {
+      "provider": "PowerDNS / Self-hosted",
+      "pattern": "(?:powerdns|\\.internal|\\.localdomain)\\.?$",
+      "severity": "Info",
+      "message": "DNS appears to be PowerDNS or self-hosted."
+    },
+    {
+      "provider": "Custom / ISP",
+      "pattern": "^(?:ns\\d+\\.[a-z0-9-]+\\.isp|[a-z0-9-]+\\.example-isp\\.net)\\.?$",
+      "severity": "Info",
+      "message": "DNS appears to be provided by a custom/ISP nameserver."
+    }
+  ],
+
+  "txt_rule": [
+    {
+      "provider": "Google",
+      "pattern": "(?:\\b_spf\\.google\\.com\\b|\\bgoogle[-._a-z0-9]*\\.google\\.com\\b|google-site-verification)",
+      "severity": "Info",
+      "message": "Uses Google services (Google Workspace, site verification, or other Google integrations)."
+    },
+    {
+      "provider": "Microsoft",
+      "pattern": "(?:spf\\.protection\\.outlook\\.com|ms=ms|onmicrosoft\\.com|_domaincontrol\\.azure)",
+      "severity": "Info",
+      "message": "Uses Microsoft services (Office365/Azure/Microsoft verification)."
+    },
+    {
+      "provider": "Stripe",
+      "pattern": "(?:stripe|_stripe_)",
+      "severity": "Info",
+      "message": "References to Stripe detected in TXT records (payment/webhook integration)."
+    },
+    {
+      "provider": "Apple",
+      "pattern": "(?:apple-developer|apple-domain-verification|apple)",
+      "severity": "Info",
+      "message": "Apple-related TXT record found (Apple services/verification)."
+    },
+    {
+      "provider": "OpenAI",
+      "pattern": "(?:openai|openai-verification|openai-domain-verification)",
+      "severity": "Info",
+      "message": "OpenAI integration indicated by TXT records."
+    },
+    {
+      "provider": "Atlassian",
+      "pattern": "(?:atlassian|jira|confluence|crowd|bitbucket|atlassian-domain-verification)",
+      "severity": "Info",
+      "message": "Atlassian cloud integration detected (Jira/Confluence/Bitbucket)."
+    },
+    {
+      "provider": "Zoom",
+      "pattern": "(?:zoom\\.us|zoom-verification|zoom)",
+      "severity": "Info",
+      "message": "Zoom-related TXT entry detected."
+    },
+    {
+      "provider": "Uber",
+      "pattern": "(?:uber|uber-verification)",
+      "severity": "Info",
+      "message": "Uber-related TXT entry detected."
+    },
+    {
+      "provider": "Brevo",
+      "pattern": "(?:brevo|sendinblue|brevo-verification)",
+      "severity": "Info",
+      "message": "Brevo / Sendinblue email service reference found."
+    },
+    {
+      "provider": "Cursor",
+      "pattern": "(?:cursor|cursor-verification)",
+      "severity": "Info",
+      "message": "Cursor integration indicated by TXT records."
+    },
+    {
+      "provider": "Extensis",
+      "pattern": "(?:extensis|extensis-verification)",
+      "severity": "Info",
+      "message": "Extensis service reference detected."
+    },
+    {
+      "provider": "Pardot",
+      "pattern": "(?:pardot|pardot-verification|pardot\\.com)",
+      "severity": "Info",
+      "message": "Pardot marketing automation integration detected."
+    }
+  ],
+
+
+  "soa_rule": [
+    {
+      "field": "refresh",
+      "condition": "<",
+      "threshold_seconds": 300,
+      "severity": "Medium-High",
+      "message": "Excessive polling can overload the master NS, potentially enabling DoS-like conditions."
+    },
+    {
+      "field": "refresh",
+      "condition": ">",
+      "threshold_seconds": 86400,
+      "severity": "Medium",
+      "message": "Slow propagation could allow stale or inconsistent data to be served, affecting availability."
+    },
+    {
+      "field": "retry",
+      "condition": "<",
+      "threshold_seconds": 60,
+      "severity": "Medium-High",
+      "message": "Frequent retries may be abused to generate traffic spikes toward the master server."
+    },
+    {
+      "field": "retry",
+      "condition": ">",
+      "threshold_seconds": 43200,
+      "severity": "Medium",
+      "message": "Delayed resynchronization increases window for inconsistent or stale responses."
+    },
+    {
+      "field": "expire",
+      "condition": "<",
+      "threshold_seconds": 86400, 
+      "severity": "Medium",
+      "message": "Short expiration can cause secondaries to stop serving if master fails, risking downtime."
+    },
+    {
+      "field": "expire",
+      "condition": ">",
+      "threshold_seconds": 5184000, 
+      "severity": "Medium",
+      "message": "Long expiration allows stale data to persist in secondaries, potentially serving outdated or compromised info."
+    },
+    {
+      "field": "ttl",
+      "condition": "<",
+      "threshold_seconds": 60,
+      "severity": "Medium-High",
+      "message": "Very low TTLs can be exploited in DNS amplification attacks or increase server load."
+    },
+    {
+      "field": "ttl",
+      "condition": ">",
+      "threshold_seconds": 604800,
+      "severity": "Medium",
+      "message": "High TTL may let clients cache outdated or potentially malicious DNS data, delaying mitigation of hijacks or record changes."
     }
   ],
 
